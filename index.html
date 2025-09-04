@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Miyamoto International</title>
+  <style>
+    :root {
+      --primary: #1f6feb;       
+      --ring: rgba(19, 23, 31, 0.3); 
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle, #9dabf8 0%, #000000 100%);
+      color: #ffffff;
+      line-height: 1.6;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #000000;
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    /* Logo (gambar + teks) */
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 20px;
+      color: white;
+    }
+    .brand img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 50%; /* opsional, biar bulat */
+    }
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: #637afc;
+    }
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .hamburger span {
+      height: 3px;
+      width: 25px;
+      background: white;
+      margin: 4px 0;
+      border-radius: 2px;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background: #333;
+        flex-direction: column;
+        width: 200px;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      nav.active {
+        display: flex;
+      }
+      .hamburger {
+        display: flex;
+      }
+    }
+    section {
+      padding: 40px 20px;
+    }
+    h2 {
+      margin-bottom: 10px;
+      color: #010e31;
+    }
+    /* Hero Section */
+    #hero {
+        background-color: #f5f9fc;
+        padding: 60px 20px;
+    }
+    .hero-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: auto;
+        flex-wrap: wrap;
+    }
+    .hero-text {
+        flex: 1 1 500px;
+    }
+    .hero-text h1 {
+        font-size: 42px;
+        font-weight: 700;
+        color: #fdf7f7;
+        margin-bottom: 20px;
+        line-height: 1.2;
+    }
+    .hero-text p {
+        font-size: 16px;
+        color: #c0bbbb;
+        margin-bottom: 25px;
+    }
+    .hero-buttons {
+        display: flex;
+        gap: 15px;
+    }
+    .btn-primary {
+        background: #3b57f8;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+    }
+    .btn-primary:hover {
+        background: #637afc;
+    }
+    .btn-outline {
+        border: 2px solid #3b57f8;
+        color: #637afc;
+        padding: 12px 25px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    .btn-outline:hover {
+        background: #637afc;
+        color: white;
+    }
+    .hero-image {
+        flex: 1 1 400px;
+        display: flex;
+        justify-content: center;
+    }
+    .hero-image img {
+        max-width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+    /* Sections */
+    .section{
+        padding:40px 20px
+    }
+    .section h2{
+        font-size:26px;
+        margin:0 0 12px;
+        text-align:left;
+    }
+    /* Tentang Kami Section */
+        .tentang-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: auto;
+        gap: 30px;
+        flex-wrap: wrap; /* biar responsif */
+    }
+    .tentang-image {
+        flex: 1 1 400px;
+        display: flex;
+        justify-content: center;
+        order: 1; /* gambar di kiri */
+    }
+    .tentang-image img {
+        max-width: 80%;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+    .tentang-text {
+        flex: 1 1 600px;
+        color: #fff;
+        order: 2; /* teks di kanan */
+    }
+    /* Responsif mobile */
+    @media (max-width: 768px) {
+        .tentang-container {
+            flex-direction: column;
+            text-align: center;
+        }
+        .tentang-image {
+            order: 1; /* gambar tetap di atas */
+        }
+        .tentang-text {
+            order: 2; /* teks di bawah */
+        }
+    }
+    /* Layanan pakai gambar */
+    .layanan-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+    }
+    .layanan-item{
+      background:#fff;
+      border-radius:10px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.2);
+      overflow:hidden;
+    }
+    .layanan-item img{
+      width:100%;
+      height:150px;
+      object-fit:cover;
+      display:block;
+    }
+    .layanan-item div{
+      padding:12px;
+    }
+    .layanan-item h3{
+      margin-bottom:6px;
+      font-size:18px;
+      color:#021d36;
+    }
+    .layanan-item p {
+        font-size: 16px;
+        color: #1e1f4b;
+        margin-bottom: 25px;
+    }
+    /* Paket layanan tabel belang */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 16px;
+        border: 1px solid #ddd; 
+    }
+    thead th, tbody td {
+        border: 1px solid #ddd; 
+        padding: 12px;
+        text-align: left;
+    }
+    thead th {
+        background: #021092;
+        color: #fff;
+    }
+    tbody tr:nth-child(even) {
+        background: #3b4efd;
+    }
+    /* Form */
+    .kontak-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        max-width: 1200px;
+        margin: auto;
+    }
+    h3 {
+      margin-bottom: 10px;
+      color: #3e6df0;
+    }
+    #kontak {
+        max-width: 1200px;   
+        margin: 0 auto;    
+        padding: 40px 20px;
+    }
+    form {
+        display: grid;
+        gap: 12px;
+        width: 100%;        
+    }
+    form label {
+        font-weight: bold;
+        margin-top: 10px;
+        display: block;
+    }
+    form input, form textarea, form select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+        display: block;
+        box-sizing: border-box;
+    }
+    input:focus, textarea:focus, select:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--ring);
+        border-color: var(--primary);
+    }
+    select {
+        height: 45px;   
+    }
+    .button-group {
+        display: flex;
+        gap: 8px;         
+        justify-content: flex-end; 
+    }
+    form button {
+        padding: 4px 10px;   
+        font-size: 12px;     
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+    form button[type="submit"] {
+        background: var(--primary);
+        color: #fff;
+    }
+    form button[type="reset"] {
+        background: #ccc;
+        color: #000;
+    }
+    footer{
+        padding:20px;
+        text-align:center;
+        font-size:14px;
+        color:#fff;
+        border-top:1px solid #061066;
+        margin-top:30px
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- Logo (gambar + teks) -->
+    <div class="brand">
+      <img src="FOTO/LOGO.jpeg" alt="LOGO">
+      <span>Miyamoto International</span>
+    </div>
+    <!-- Hamburger menu -->
+    <div class="hamburger" onclick="document.querySelector('nav').classList.toggle('active')">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <!-- Navigation -->
+    <nav class="menu">
+        <a href="#home">Home</a>
+        <a href="#tentang">Tentang</a>
+        <a href="#layanan">Layanan</a>
+        <a href="#paket">Paket</a>
+        <a href="#kontak">Kontak</a>
+    </nav>
+  </header>
+
+<main>
+    <!-- Hero -->
+    <section id="home" class="hero">
+    <div class="hero-container">
+    <div class="hero-text">
+      <h1>Selamat Datang di Miyamoto International</h1>
+      <p>
+        Global Struktural and Earthquake Engineering Experts</p>
+      <div class="hero-buttons">
+        <a href="#layanan" class="btn-primary">Jelajahi Layanan</a>
+        <a href="#kontak" class="btn-outline">Hubungi Kami</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="FOTO/HOME.png" alt="HOME"/>
+    </div>
+  </div>
+</section>
+<!-- Tentang -->
+    <section id="tentang" class="section">
+    <div class="tentang-container">
+    <div class="tentang-image">
+      <img src="FOTO/TENTANG.png" alt="TENTANG"/>
+     </div>
+    <div class="tentang-text">
+        <h2>Tentang Kami</h2>
+        <p>
+         Miyamoto International adalah perusahaan rekayasa struktural global yang
+         dikenal sebagai ahli dalam rekayasa tahan bencana, khususnya gempa bumi.
+         Dengan tim multidisiplin dan teknologi modern seperti komputasi canggih dan
+         machine learning, kami menghadirkan solusi inovatif untuk pembangunan
+         yang lebih aman dan berkelanjutan.
+        </p>
+        <h2>Keunggulan</h2>
+        <ol>
+          <li>Pengalaman Internasional di banyak negara.</li>
+          <li>Ahli dalam rekayasa struktural tahan bencana.</li>
+          <li>Menggunakan teknologi modern (AI, machine learning, simulasi komputasi).</li>
+          <li>Tim multidisiplin profesional dan berpengalaman.</li>
+          <li>Komitmen terhadap pembangunan keberlanjutan.</li>
+        </ol>
+    </div>
+    </section>
+<!-- Layanan -->
+    <section id="layanan" class="section">
+      <h2>Layanan Kami</h2>
+      <div class="layanan-grid">
+        <div class="layanan-item">
+          <img src="FOTO/structural.png" alt="structural">
+          <div><h3>Structural Engineering</h3>
+                <p>Desain dan analisis gedung tinggi, jembatan, dan infrastruktur lainnya.</p></div>
+        </div>
+        <div class="layanan-item">
+          <img src="FOTO/Earthquake.png" alt="Earthquake">
+          <div><h3>Earthquake Engineering</h3><p>Perkuatan bangunan agar tahan gempa.</p></div>
+        </div>
+        <div class="layanan-item">
+          <img src="FOTO/Disaster.png" alt="Disaster">
+          <div><h3>Disaster Risk Reduction</h3>
+                <p>Mitigasi risiko bencana untuk kawasan rawan gempa/tsunami.</p></div>
+        </div>
+        <div class="layanan-item">
+          <img src="FOTO/Retrofit.png" alt="Retrofit">
+          <div><h3>Retrofit & Rehabilitation</h3>
+                <p>Memperkuat bangunan lama agar sesuai standar baru.</p></div>
+        </div>
+        <div class="layanan-item">
+          <img src="FOTO/research.png" alt="Research">
+          <div><h3>Research & Innovation</h3>
+            <p>Pembangunan machine learning dan simulasi komputer untuk optimal desain.</p></div>
+        </div>
+      </div>
+    </section>
+<!-- Paket -->
+    <section id="paket" class="section">
+      <h2>Paket Layanan</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Layanan</th>
+            <th>Paket</th>
+            <th>Esimasi Biaya*</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>  
+          <td>1</td>
+          <td>Structural Engineering</td>
+          <td>Desain Gedung Tinggi</td>
+          <td>Rp 500.000.000+</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Earthquake Engineering</td>
+          <td>Perkuatan Bangunan Existing</td>
+          <td>Rp 250.000.000+</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Disaster Risk Reduction</td>
+          <td>Analisis Risiko + Mitigasi</td>
+          <td>Rp 150.000.000+</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Retrofit & Rehabilitation</td>
+          <td>Gedung Pemerintah/Komersial</td>
+          <td>Rp 300.000.000+</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Research & Innovation</td>
+          <td>Simulasi & Machine Learning</td>
+          <td>By Project</td>
+        </tr>
+      </table>
+      <p><i>*Biaya hanya ilustrasi untuk tugas, bukan harga resmi perusahaan.</i></p>
+    </section>
+
+<section id="kontak">
+  <h2>Kontak</h2>
+  <div class="kontak-container">  
+    <!-- Kolom Kiri: Info Perusahaan -->
+    <div class="kontak-info">
+      <h3>Alamat</h3>
+      <p>1450 Halyard Drive, Suite 1, West Sacramento, CA 95691, USA</p>
+      <h3>Telepon</h3>
+      <p>+1 833-270-8848</p>
+      <h3>Email</h3>
+      <p>miyamotointernational@gmail.com</p>
+      <h3>Jam Operasional</h3>
+      <p>Senin - Jumat: 8 AM - 5 PM</p>
+      <p>Sabtu - Minggu: Tutup</p>
+    </div>
+    <!-- Kolom Kanan: Form -->
+    <div class="kontak-form">
+      <form>
+        <label for="nama">Nama Lengkap:</label>
+        <input type="text" id="nama" name="nama" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="telepon">Telepon:</label>
+        <input type="tel" id="telepon" name="telepon">
+        <label for="layanan">Layanan yang diminati:</label>
+        <select id="layanan" name="layanan">
+          <option value="">-- Pilih Layanan --</option>
+          <option>Structural Engineering</option>
+          <option>Earthquake Engineering</option>
+          <option>Disaster Risk Reduction</option>
+          <option>Retrofit & Rehabilitation</option>
+          <option>Research & Innovation</option>
+        </select>
+        <label for="pesan">Pesan:</label>
+        <textarea id="pesan" name="pesan" rows="4"></textarea>
+        <div class="button-group">
+        <button type="submit">Kirim</button>
+        <button type="reset">Reset</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+  </main>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Miyamoto Internasional | All Rights Reserved</p>
+    <p>📧 info@miyamotointernational.com | 
+       🌐 <a href="https://miyamotointernational.com" style="color:white;">
+        Website Resmi</a></p>
+  </footer>
+</body>
+</html>
